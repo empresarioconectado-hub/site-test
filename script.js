@@ -52,14 +52,14 @@ const buy=$('#buy-button');
 if(buy){
  buy.addEventListener('click',event=>{
   event.preventDefault();
-  alert('O link de checkout ainda precisa ser configurado pela equipe Prumo antes de receber pagamentos.');
+  alert('O checkout ainda não foi conectado. Envie o link oficial da Hotmart para ativar a compra.');
  });
 }
 const wa=$('#wa-link');
 if(wa){
  wa.addEventListener('click',event=>{
   event.preventDefault();
-  alert('O número oficial de WhatsApp ainda precisa ser configurado.');
+  alert('O contato comercial ainda não foi configurado.');
  });
 }
 })();
