@@ -82,7 +82,7 @@ if(countdown){
  let deadline=0;
  try{
   deadline=Number(sessionStorage.getItem(key))||0;
-  if(!deadline||deadline<Date.now()){
+  if(!deadline){
    deadline=Date.now()+15*60*1000;
    sessionStorage.setItem(key,String(deadline));
   }
