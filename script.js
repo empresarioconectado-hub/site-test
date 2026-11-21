@@ -1,7 +1,6 @@
 (()=> {
 'use strict';
-const KIRVANO_CHECKOUT_URL = '';
-const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','gclid','fbclid'];
+const KIWIFY_CHECKOUT_URL = 'https://pay.kiwify.com.br/kGaCJmL';
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 const brl=n=>'R$ '+Math.round(n).toLocaleString('pt-BR');
@@ -13,16 +12,7 @@ function trackEvent(eventName, params={}) {
   } catch (_) {}
 }
 function checkoutUrl() {
-  if (!KIRVANO_CHECKOUT_URL) return '';
-  try {
-    const target = new URL(KIRVANO_CHECKOUT_URL);
-    const current = new URL(window.location.href);
-    UTM_KEYS.forEach(key => {
-      const value = current.searchParams.get(key);
-      if (value && !target.searchParams.has(key)) target.searchParams.set(key, value);
-    });
-    return target.toString();
-  } catch (_) { return ''; }
+  return KIWIFY_CHECKOUT_URL;
 }
 const burger=$('#burger'),nav=$('#nav');
 if(burger&&nav){
@@ -146,7 +136,7 @@ document.addEventListener('keydown',event=>{
 // CTA: navega direto quando a URL real estiver configurada; caso contrário, conduz à oferta sem simular checkout.
 const destination=checkoutUrl();
 $$('[data-buy]').forEach(button=>{
- if(destination)button.href=destination;
+ if(destination){button.href=destination;button.target='_blank';button.rel='noopener noreferrer';}
  button.addEventListener('click',event=>{
   trackEvent('InitiateCheckout',{content_name:'Pacote Prumo de Planilhas',currency:'BRL',value:197});
   if(!destination){
@@ -158,6 +148,6 @@ $$('[data-buy]').forEach(button=>{
 });
 if(destination){
  const note=$('#checkout-status');
- if(note)note.textContent='Você será direcionado ao checkout seguro da Kirvano.';
+ if(note)note.textContent='Você será direcionado ao checkout da Kiwify.';
 }
 })();
